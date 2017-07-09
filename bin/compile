@@ -52,7 +52,7 @@ export LD_LIBRARY_PATH="\$HOME/.apt/usr/lib/x86_64-linux-gnu:\$LD_LIBRARY_PATH"
 
 # Download dotnet
 echo "Fetching dotnet"
-echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ xenial main" > $APT_FAKE_DIR/sources.list.d/dotnetdev.list
+echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ xenial main" > $APT_FAKE_DIR/etc/apt/sources.list.d/dotnetdev.list
 apt-key --keyring $APT_FAKE_DIR/trusted.gpg adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 417A0893
 apt $APT_OPTIONS update
 apt $APT_OPTIONS -y --force-yes -d install --reinstall dotnet-dev-1.0.4
