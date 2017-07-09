@@ -19,23 +19,17 @@ mkdir -p ${BUILD_DIR}/.apt
 # Download dependencies
 APT_CACHE_DIR="$CACHE_DIR/apt/cache"
 APT_STATE_DIR="$CACHE_DIR/apt/state"
-APT_DIR_ETC_SOURCEPARTS="$CACHE_DIR/apt/dir_etc_sp"
-APT_DIR_BIN_METHODS="$CACHE_DIR/apt/dir_bin_methods"
-APT_TEMP_KEYRING="$CACHE_DIR/apt/trusted.gpg"
+APT_FAKE_DIR="$CACHE_DIR/apt/fake_dir"
 
 mkdir -p "$APT_CACHE_DIR/archives/partial"
 mkdir -p "$APT_STATE_DIR/lists/partial"
-mkdir -p $APT_DIR_ETC_SOURCEPARTS
-mkdir -p $APT_DIR_BIN_METHODS
 
 mkdir -p $BUILD_DIR/.apt
 
 # Set up temp APT directory
-cp /etc/apt/trusted.gpg $APT_TEMP_KEYRING
-cp -Rf /etc/apt/sources.list.d $APT_DIR_ETC_SOURCEPARTS
-cp -Rf /usr/lib/apt/solvers $APT_DIR_BIN_METHODS
+cp -R /etc/apt/* $APT_FAKE_DIR/
 
-APT_OPTIONS="-o debug::nolocking=true -o dir::bin::methods=$APT_DIR_BIN_METHODS -o dir::etc:trusted=$APT_TEMP_KEYRING -o dir::etc::sourceparts=$APT_DIR_ETC_SOURCEPARTS -o dir::cache=$APT_CACHE_DIR -o dir::state=$APT_STATE_DIR"
+APT_OPTIONS="-o debug::nolocking=true -o dir=$APT_FAKE_DIR -o dir::cache=$APT_CACHE_DIR -o dir::state=$APT_STATE_DIR"
 
 apt $APT_OPTIONS update
 
@@ -54,8 +48,8 @@ export LD_LIBRARY_PATH="\$HOME/.apt/usr/lib/x86_64-linux-gnu:\$LD_LIBRARY_PATH"
 
 # Download dotnet
 echo "Fetching dotnet"
-echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ xenial main" > $APT_DIR_ETC_SOURCEPARTS/dotnetdev.list
-apt-key --keyring $APT_TEMP_KEYRING adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 417A0893
+echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ xenial main" > $APT_FAKE_DIR/sources.list.d/dotnetdev.list
+apt-key --keyring $APT_FAKE_DIR/trusted.gpg adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 417A0893
 apt $APT_OPTIONS update
 apt $APT_OPTIONS -y --force-yes -d install --reinstall dotnet-dev-1.0.4
 
