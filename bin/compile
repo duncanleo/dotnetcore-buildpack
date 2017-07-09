@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+# bin/compile <build-dir> <cache-dir>
+
+# fail fast
+set -e
+
+BUILD_DIR=$1
+CACHE_DIR=$2
+ENV_DIR=$3
+DEPLOYMENT_FILE_LOCATION=${BUILD_DIR}/.deployment
+
+# Install dotnet
+sh -c 'echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ xenial main" > /etc/apt/sources.list.d/dotnetdev.list'
+apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 417A0893
+apt -y update
+apt -y install dotnet-dev-1.0.4
+
+if [ -e ${DEPLOYMENT_FILE_LOCATION} ]; then
+  PROJECT_DIR=$BUILD_DIR/$(awk -F "=" '/project/ {print $2}' ${DEPLOYMENT_FILE_LOCATION} | tr -d ' ')
+  CSPROJ_FILE=$(find $PROJECT_DIR -maxdepth 3 -iname "*.csproj")
+	echo "Project file configured in .deployment file"
+fi
+
+cd $BUILD_DIR
+dotnet restore
+dotnet publish ${CSPROJ_FILE} --output ${BUILD_DIR} $DNU_FLAGS --runtime ubuntu.16.04-x64 --configuration Release
