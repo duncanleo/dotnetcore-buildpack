@@ -23,6 +23,7 @@ APT_FAKE_DIR="$CACHE_DIR/apt/fake_dir"
 
 mkdir -p "$APT_CACHE_DIR/archives/partial"
 mkdir -p "$APT_STATE_DIR/lists/partial"
+mkdir -p $APT_FAKE_DIR
 
 mkdir -p $BUILD_DIR/.apt
 
