@@ -28,7 +28,7 @@ mkdir -p $APT_DIR_ETC
 mkdir -p $BUILD_DIR/.apt
 
 # Set up temp APT directory
-cp -R /etc/apt/ $APT_DIR_ETC
+cp -Rf /etc/apt/ $APT_DIR_ETC
 
 APT_OPTIONS="-o debug::nolocking=true -o dir::etc=$APT_DIR_ETC -o dir::cache=$APT_CACHE_DIR -o dir::state=$APT_STATE_DIR"
 
