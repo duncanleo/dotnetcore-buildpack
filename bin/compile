@@ -20,19 +20,22 @@ mkdir -p ${BUILD_DIR}/.apt
 APT_CACHE_DIR="$CACHE_DIR/apt/cache"
 APT_STATE_DIR="$CACHE_DIR/apt/state"
 APT_DIR_ETC_SOURCEPARTS="$CACHE_DIR/apt/dir_etc_sp"
+APT_DIR_BIN_METHODS="$CACHE_DIR/apt/dir_bin_methods"
 APT_TEMP_KEYRING="$CACHE_DIR/apt/trusted.gpg"
 
 mkdir -p "$APT_CACHE_DIR/archives/partial"
 mkdir -p "$APT_STATE_DIR/lists/partial"
 mkdir -p $APT_DIR_ETC_SOURCEPARTS
+mkdir -p $APT_DIR_BIN_METHODS
 
 mkdir -p $BUILD_DIR/.apt
 
 # Set up temp APT directory
 cp /etc/apt/trusted.gpg $APT_TEMP_KEYRING
 cp -Rf /etc/apt/sources.list.d $APT_DIR_ETC_SOURCEPARTS
+cp -Rf /usr/lib/apt/solvers $APT_DIR_BIN_METHODS
 
-APT_OPTIONS="-o debug::nolocking=true -o dir::etc:trusted=$APT_TEMP_KEYRING -o dir::etc::sourceparts=$APT_DIR_ETC_SOURCEPARTS -o dir::cache=$APT_CACHE_DIR -o dir::state=$APT_STATE_DIR"
+APT_OPTIONS="-o debug::nolocking=true -o dir::bin::methods=$APT_DIR_BIN_METHODS -o dir::etc:trusted=$APT_TEMP_KEYRING -o dir::etc::sourceparts=$APT_DIR_ETC_SOURCEPARTS -o dir::cache=$APT_CACHE_DIR -o dir::state=$APT_STATE_DIR"
 
 apt $APT_OPTIONS update
 
