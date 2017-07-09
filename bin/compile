@@ -38,6 +38,9 @@ apt $APT_OPTIONS update
 
 # Essentials
 apt $APT_OPTIONS -y --force-yes -d install --reinstall apt-transport-https
+dpkg -x $APT_CACHE_DIR/archives/apt-transport-https*.deb $BUILD_DIR/.apt/
+
+# Install everything
 
 # libunwind
 echo "Fetching libunwind"
