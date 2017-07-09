@@ -28,7 +28,7 @@ mkdir -p $APT_DIR_ETC_SOURCEPARTS
 mkdir -p $BUILD_DIR/.apt
 
 # Set up temp APT directory
-cp -Rf /etc/apt/ $APT_DIR_ETC
+cp -Rf /etc/apt/ $APT_DIR_ETC_SOURCEPARTS
 
 APT_OPTIONS="-o debug::nolocking=true -o dir::etc::sourceparts=$APT_DIR_ETC_SOURCEPARTS -o dir::cache=$APT_CACHE_DIR -o dir::state=$APT_STATE_DIR"
 
