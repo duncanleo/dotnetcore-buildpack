@@ -63,7 +63,7 @@ apt $APT_OPTIONS -y --force-yes -d install --reinstall dotnet-dev-1.0.4
 # Install everything
 for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
   echo "Installing $(basename $DEB)"
-  dpkg -x $DEB $BUILD_DIR/.apt/
+  chroot $FAKE_ROOT_DIR dpkg -i $DEB
 done
 
 export PATH="\$HOME/dotnet:\$PATH"
