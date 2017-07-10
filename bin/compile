@@ -58,7 +58,7 @@ export LD_LIBRARY_PATH="\$HOME/.apt/usr/lib/x86_64-linux-gnu:\$LD_LIBRARY_PATH"
 echo "Fetching dotnet"
 echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ xenial main" > $FAKE_ROOT_DIR/etc/apt/sources.list.d/dotnetdev.list
 apt-key --keyring $FAKE_ROOT_DIR/etc/apt/trusted.gpg adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 417A0893
-apt-config $APT_OPTIONS dump dir | cat
+gpg --keyring $FAKE_ROOT_DIR/etc/apt/trusted.gpg --armor --export 417A0893 | apt-key --keyring $FAKE_ROOT_DIR/etc/apt/trusted.gpg add -
 apt $APT_OPTIONS update
 apt $APT_OPTIONS -y --force-yes -d install --reinstall dotnet-dev-1.0.4
 
