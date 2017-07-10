@@ -54,18 +54,20 @@ apt $APT_OPTIONS -y --force-yes -d install --reinstall libunwind8 mawk coreutils
 export LD_LIBRARY_PATH="$BUILD_DIR/.apt/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH"
 export LD_LIBRARY_PATH="\$HOME/.apt/usr/lib/x86_64-linux-gnu:\$LD_LIBRARY_PATH"
 
+# Install everything
+for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
+  echo "Installing $(basename $DEB)"
+  dpkg -x $DEB $FAKE_ROOT_DIR
+done
+
+export PATH="$FAKE_ROOT_DIR/usr/bin:\$PATH"
+
 # Download dotnet
 echo "Fetching dotnet"
 DOTNET_DIR=$CACHE_DIR/dotnet
 mkdir $DOTNET_DIR
 curl -sSL -o $DOTNET_DIR/dotnet.tar.gz https://go.microsoft.com/fwlink/?linkid=848826
 mkdir -p $DOTNET_DIR/dotnet && tar zxf $DOTNET_DIR/dotnet.tar.gz -C $DOTNET_DIR/dotnet
-
-# Install everything
-for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
-  echo "Installing $(basename $DEB)"
-  dpkg -x $DEB $FAKE_ROOT_DIR
-done
 
 export PATH="$CACHE_DIR/dotnet:\$PATH"
 
