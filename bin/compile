@@ -83,3 +83,10 @@ fi
 cd $PROJECT_DIR
 dotnet restore
 dotnet publish ${CSPROJ_FILE} --output ${BUILD_DIR} $DNU_FLAGS --configuration Release
+
+# Copy profile script
+mkdir -p $BUILD_DIR/.profile.d
+cat <<EOF >"$BUILD_DIR"/.profile.d/dotnetcore.sh
+export LD_LIBRARY_PATH="$HOME/fake_root_dir/usr/lib/x86_64-linux-gnu:$LD_LIBRARY_PATH"
+export PATH="$HOME/dotnet/dotnet:$PATH"
+EOF
