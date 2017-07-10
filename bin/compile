@@ -60,7 +60,7 @@ for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
   dpkg -x $DEB $FAKE_ROOT_DIR
 done
 
-export PATH="$FAKE_ROOT_DIR/usr/bin:\$PATH"
+export PATH="$FAKE_ROOT_DIR/usr/bin:$PATH"
 
 # Download dotnet
 echo "Fetching dotnet"
