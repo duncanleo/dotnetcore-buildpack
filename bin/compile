@@ -51,6 +51,11 @@ export PKG_CONFIG_PATH="$FAKE_ROOT_DIR/usr/lib/x86_64-linux-gnu/pkgconfig:$FAKE_
 echo "Fetching libunwind"
 apt $APT_OPTIONS -y --force-yes -d install --reinstall libunwind8 mawk coreutils
 
+# libicu
+echo "deb http://security.ubuntu.com/ubuntu trusty-security main" >> $FAKE_ROOT_DIR/etc/apt/sources.list
+apt $APT_OPTIONS update
+apt $APT_OPTIONS -y --force-yes -d install --reinstall libicu52 liblldb-3.6
+
 # Install everything
 for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
   echo "Installing $(basename $DEB)"
