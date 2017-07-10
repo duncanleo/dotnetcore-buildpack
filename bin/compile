@@ -28,7 +28,7 @@ mkdir -p $FAKE_ROOT_DIR/usr/lib/apt
 cp -R /etc/apt/* $FAKE_ROOT_DIR/etc/apt
 cp -R /usr/lib/apt/* $FAKE_ROOT_DIR/usr/lib/apt
 
-APT_OPTIONS="-o debug::nolocking=true -o dir::bin::methods=$FAKE_ROOT_DIR/usr/lib/apt -o dir=$FAKE_ROOT_DIR -o dir::cache=$APT_CACHE_DIR -o dir::state=$APT_STATE_DIR"
+APT_OPTIONS="-o debug::nolocking=true -o dir::bin::methods=$FAKE_ROOT_DIR/usr/lib/apt/methods -o dir=$FAKE_ROOT_DIR -o dir::cache=$APT_CACHE_DIR -o dir::state=$APT_STATE_DIR"
 
 echo "Updating apt"
 apt $APT_OPTIONS update
