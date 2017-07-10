@@ -81,4 +81,4 @@ fi
 # Compile and publish
 cd $PROJECT_DIR
 dotnet restore
-dotnet publish ${CSPROJ_FILE} --output ${BUILD_DIR} $DNU_FLAGS --runtime ubuntu.16.04-x64 --configuration Release
+dotnet publish ${CSPROJ_FILE} --output ${BUILD_DIR} $DNU_FLAGS --configuration Release
