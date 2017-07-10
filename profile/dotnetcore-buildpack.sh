@@ -1,2 +1,1 @@
-DOTNET_DIR=$HOME/dotnet
-PATH="$DOTNET_DIR/dotnet:$PATH"
+export PATH="$HOME/dotnet/dotnet:$PATH"
