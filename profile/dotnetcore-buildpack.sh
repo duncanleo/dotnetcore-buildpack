@@ -1,0 +1,2 @@
+DOTNET_DIR=$CACHE_DIR/dotnet
+PATH="$DOTNET_DIR/dotnet:$PATH"
