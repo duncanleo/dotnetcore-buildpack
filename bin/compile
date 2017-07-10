@@ -14,9 +14,10 @@ ENV_DIR=$3
 DEPLOYMENT_FILE_LOCATION=${BUILD_DIR}/.deployment
 
 # Download dependencies
+NUGET_PACKAGES="$CACHE_DIR/nuget/cache"
 APT_CACHE_DIR="$CACHE_DIR/apt/cache"
 APT_STATE_DIR="$CACHE_DIR/apt/state"
-FAKE_ROOT_DIR="$CACHE_DIR/fake_root_dir"
+FAKE_ROOT_DIR="$BUILD_DIR/fake_root_dir"
 
 mkdir -p "$APT_CACHE_DIR/archives/partial"
 mkdir -p "$APT_STATE_DIR/lists/partial"
