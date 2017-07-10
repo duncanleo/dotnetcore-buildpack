@@ -69,7 +69,7 @@ mkdir $DOTNET_DIR
 curl -sSL -o $DOTNET_DIR/dotnet.tar.gz https://go.microsoft.com/fwlink/?linkid=848826
 mkdir -p $DOTNET_DIR/dotnet && tar zxf $DOTNET_DIR/dotnet.tar.gz -C $DOTNET_DIR/dotnet
 
-export PATH="$CACHE_DIR/dotnet:\$PATH"
+export PATH="$CACHE_DIR/dotnet:$PATH"
 
 # Determine csproj location
 if [ -e ${DEPLOYMENT_FILE_LOCATION} ]; then
