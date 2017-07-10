@@ -56,11 +56,10 @@ export LD_LIBRARY_PATH="\$HOME/.apt/usr/lib/x86_64-linux-gnu:\$LD_LIBRARY_PATH"
 
 # Download dotnet
 echo "Fetching dotnet"
-echo "deb [arch=amd64] https://apt-mo.trafficmanager.net/repos/dotnet-release/ xenial main" > $FAKE_ROOT_DIR/etc/apt/sources.list.d/dotnetdev.list
-apt-key --keyring $FAKE_ROOT_DIR/etc/apt/trusted.gpg adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 417A0893
-gpg --keyring $FAKE_ROOT_DIR/etc/apt/trusted.gpg --armor --export 417A0893 | apt-key --keyring $FAKE_ROOT_DIR/etc/apt/trusted.gpg add -
-apt $APT_OPTIONS update
-apt $APT_OPTIONS -y --force-yes -d install --reinstall dotnet-dev-1.0.4
+DOTNET_DIR=$CACHE_DIR/dotnet
+mkdir $DOTNET_DIR
+curl -sSL -o $DOTNET_DIR/dotnet.tar.gz https://go.microsoft.com/fwlink/?linkid=848826
+mkdir -p $DOTNET_DIR/dotnet && sudo tar zxf dotnet.tar.gz -C $DOTNET_DIR/dotnet
 
 # Install everything
 for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
@@ -68,7 +67,7 @@ for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
   dpkg -x $DEB $FAKE_ROOT_DIR
 done
 
-export PATH="\$HOME/dotnet:\$PATH"
+export PATH="$CACHE_DIR/dotnet:\$PATH"
 
 # Determine csproj location
 if [ -e ${DEPLOYMENT_FILE_LOCATION} ]; then
