@@ -59,7 +59,7 @@ echo "Fetching dotnet"
 DOTNET_DIR=$CACHE_DIR/dotnet
 mkdir $DOTNET_DIR
 curl -sSL -o $DOTNET_DIR/dotnet.tar.gz https://go.microsoft.com/fwlink/?linkid=848826
-mkdir -p $DOTNET_DIR/dotnet && sudo tar zxf dotnet.tar.gz -C $DOTNET_DIR/dotnet
+mkdir -p $DOTNET_DIR/dotnet && tar zxf $DOTNET_DIR/dotnet.tar.gz -C $DOTNET_DIR/dotnet
 
 # Install everything
 for DEB in $(ls -1 $APT_CACHE_DIR/archives/*.deb); do
