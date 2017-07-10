@@ -34,7 +34,7 @@ apt $APT_OPTIONS update
 
 # Essentials
 apt $APT_OPTIONS -y --force-yes -d install --reinstall apt-transport-https
-dpkg -x $APT_CACHE_DIR/archives/apt-transport-https*.deb $FAKE_ROOT_DIR/
+chroot $FAKE_ROOT_DIR dpkg -i $APT_CACHE_DIR/archives/apt-transport-https*.deb
 
 export PATH="$FAKE_ROOT_DIR/usr/bin:$PATH"
 export LD_LIBRARY_PATH="$FAKE_ROOT_DIR/usr/lib/x86_64-linux-gnu:$FAKE_ROOT_DIR/usr/lib/i386-linux-gnu:$FAKE_ROOT_DIR/usr/lib:$LD_LIBRARY_PATH"
