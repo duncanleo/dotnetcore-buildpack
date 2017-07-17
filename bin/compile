@@ -86,6 +86,7 @@ dotnet publish ${CSPROJ_FILE} --output ${BUILD_DIR} $DNU_FLAGS --configuration R
 
 # EF Core
 EF_CORE_DLL=$(find $NUGET_PACKAGES -name "dotnet-ef.dll")
+echo "EF Core DLL = $EF_CORE_DLL"
 if [ -n $y ]; then
   cp $EF_CORE_DLL $BUILD_DIR/
 fi
