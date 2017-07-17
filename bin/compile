@@ -81,7 +81,7 @@ fi
 
 # Compile and publish
 cd $PROJECT_DIR
-dotnet restore
+dotnet restore --packages $NUGET_PACKAGES
 dotnet publish ${CSPROJ_FILE} --output ${BUILD_DIR} $DNU_FLAGS --configuration Release
 
 # EF Core
