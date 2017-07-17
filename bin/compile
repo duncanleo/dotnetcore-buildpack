@@ -88,7 +88,7 @@ dotnet publish ${CSPROJ_FILE} --output ${BUILD_DIR} $DNU_FLAGS --configuration R
 EF_CORE_DLL=$(find $NUGET_PACKAGES -name "dotnet-ef.dll")
 if [ ! -z $EF_CORE_DLL ]; then
   echo "Copying EF Core DLL = $EF_CORE_DLL"
-  cp $EF_CORE_DLL $BUILD_DIR
+  cp $EF_CORE_DLL $BUILD_DIR/dotnet-ef.dll
 fi
 
 # Copy profile script
