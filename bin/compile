@@ -84,6 +84,12 @@ cd $PROJECT_DIR
 dotnet restore
 dotnet publish ${CSPROJ_FILE} --output ${BUILD_DIR} $DNU_FLAGS --configuration Release
 
+# EF Core
+EF_CORE_DLL=$(find $NUGET_PACKAGES -name "dotnet-ef.dll")
+if [ -n $y ]; then
+  cp $EF_CORE_DLL $BUILD_DIR/
+fi
+
 # Copy profile script
 mkdir -p $BUILD_DIR/.profile.d
 cat <<EOF >"$BUILD_DIR"/.profile.d/dotnetcore.sh
